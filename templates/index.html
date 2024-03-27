@@ -1,0 +1,44 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body id="body-login">
+
+    <div class="login-container">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+
+
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+
+
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+        <h1 id="login-titulo">Login</h1>
+
+        <form id="login-form" class="login-form" action="/login" method="post">
+
+            <input id="email" type="email" name="email" placeholder="Email" required>
+
+            <input id="password" type="password" name="password" placeholder="Senha" required>
+
+            <button id="btn-login" type="submit">Entrar</button>
+        </form>
+
+        
+        <p class="register-link-text">Não tem uma conta? <a id="register-link" href="/register">Registre-se</a></p>
+    </div>
+</body>
+</html> 

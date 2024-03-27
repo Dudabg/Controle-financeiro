@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Janeiro - Controle Financeiro</title>
+</head>
+<body>
+    <h1>Janeiro - Controle Financeiro</h1>
+    
+    <form id="finance-form">
+        <h2>Salário Total</h2>
+        <input type="text" id="salario" placeholder="Valor do salário"><br>
+
+        <h2>Tipo de Transação</h2>
+        <select id="tipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+            <option value="despesa">Despesa</option>
+        </select><br>
+
+        <h2>Valor da Transação</h2>
+        <input type="text" id="valor" placeholder="Valor da transação"><br>
+
+        <input type="button" value="Adicionar" onclick="adicionar()">
+    </form>
+
+    <h2>Resumo Financeiro</h2>
+    <table id="resumo">
+        <tr>
+            <th>Entradas</th>
+            <th>Saídas</th>
+            <th>Despesas</th>
+            <th>Saldo</th>
+        </tr>
+        <tr>
+            <td id="total-entrada">0</td>
+            <td id="total-saida">0</td>
+            <td id="total-despesa">0</td>
+            <td id="saldo">0</td>
+        </tr>
+    </table>
+
+    <script>
+        function adicionar() {
+            var salario = parseFloat(document.getElementById('salario').value);
+            var tipo = document.getElementById('tipo').value;
+            var valor = parseFloat(document.getElementById('valor').value);
+            
+            var totalEntrada = parseFloat(document.getElementById('total-entrada').innerText);
+            var totalSaida = parseFloat(document.getElementById('total-saida').innerText);
+            var totalDespesa = parseFloat(document.getElementById('total-despesa').innerText);
+
+            if (tipo === 'entrada') {
+                totalEntrada += valor;
+            } else if (tipo === 'saida') {
+                totalSaida += valor;
+            } else if (tipo === 'despesa') {
+                totalDespesa += valor;
+            }
+
+            document.getElementById('total-entrada').innerText = totalEntrada.toFixed(2);
+            document.getElementById('total-saida').innerText = totalSaida.toFixed(2);
+            document.getElementById('total-despesa').innerText = totalDespesa.toFixed(2);
+
+            var saldo = salario + totalEntrada - totalSaida - totalDespesa;
+            document.getElementById('saldo').innerText = saldo.toFixed(2);
+
+            // Limpa os campos do formulário
+            document.getElementById('valor').value = '';
+        }
+    </script>
+</body>
+</html>
